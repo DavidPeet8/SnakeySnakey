@@ -42,6 +42,10 @@ public class MAIN extends ApplicationAdapter implements InputProcessor {
         shape.setColor(Color.RED);
         shape.rect(fX, fY, fW, fH);
         shape.end();
+        
+        if (snake.fX >= fX && snake.fX <= fX + fW) {
+            System.out.println("TEST");
+        }
     }
 
     @Override
