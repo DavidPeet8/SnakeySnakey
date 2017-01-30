@@ -2,7 +2,7 @@ package snakey.snakey.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import snakey.snakey.MAIN;
+import snakey.snakey.Main;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -11,6 +11,6 @@ public class DesktopLauncher {
                 config.height = 600;
                 config.backgroundFPS = 2;
                 config.foregroundFPS = 2;
-		new LwjglApplication(new MAIN(), config);
+		new LwjglApplication(new Main(), config);
 	}
 }

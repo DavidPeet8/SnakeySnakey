@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.Random;
 
-public class MAIN extends ApplicationAdapter implements InputProcessor {
+public class Main extends ApplicationAdapter implements InputProcessor {
 
     ShapeRenderer shape;
     Snake snake;
