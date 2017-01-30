@@ -16,7 +16,7 @@ public class Snake {
     float fDx, fDy;
     boolean bMove = true;
 
-    public Snake(ShapeRenderer shape, float fX, float fY, float fW, float fH) {
+    public Snake(float fX, float fY, float fW, float fH, ShapeRenderer shape) {
         this.shape = shape;
         this.fX = fX;
         this.fY = fY;
