@@ -8,37 +8,43 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
- *
  * @author peetd0837
  */
 public class Snake {
     ShapeRenderer shape;
-    float fX, fY, GridSize;
+    float fX, fY, fW, fH;
     float fDx, fDy;
-    public Snake (ShapeRenderer shape, float fX, float fY, float GridSize) {
+    boolean bMove = true;
+
+    public Snake(ShapeRenderer shape, float fX, float fY, float fW, float fH) {
         this.shape = shape;
         this.fX = fX;
         this.fY = fY;
-        this.GridSize = GridSize;
+        this.fW = fW;
+        this.fH = fH;
     }
-    void display () {
+
+    void update() {
+        display();
+        move();
+    }
+
+    void display() {
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(Color.WHITE);
-        shape.rect(fX, fY, GridSize, GridSize);
+        shape.rect(fX, fY, fW, fH);
         shape.end();
-        move();
-//        System.out.println(fDx);
-//        System.out.println(fDy);
-//        System.out.println();
     }
-    
-    void move () {
-        fX += (fDx * GridSize);
-        fY += (fDy * GridSize);
+
+    void move() {
+        fX += (fDx * fW);
+        fY += (fDy * fH);
     }
-    
-    void setDir (float fDx, float fDy) {
-        this.fDx = fDx;
-        this.fDy = fDy;
+
+    void setDir(float fDx, float fDy) {
+        if (bMove) {
+            this.fDx = fDx;
+            this.fDy = fDy;
+        }
     }
 }

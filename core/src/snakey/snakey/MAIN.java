@@ -4,47 +4,56 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import java.util.ArrayList;
+
 import java.util.Random;
 
 public class Main extends ApplicationAdapter implements InputProcessor {
 
     ShapeRenderer shape;
     Snake snake;
-    float GridSize = 10;
-    float fX, fY, fW, fH;
+    ArrayList<Food> arFood = new ArrayList<Food>();
+    float GridSize = 20;
     int nRows, nCols;
     Random ranGen;
 
     @Override
     public void create() {
         shape = new ShapeRenderer();
-        snake = new Snake(shape, 10, 10, GridSize);
-        snake.setDir(1, 0);
         Gdx.input.setInputProcessor(this);
         ranGen = new Random();
         nRows = (int) (Gdx.graphics.getWidth() / GridSize);
         nCols = (int) (Gdx.graphics.getHeight() / GridSize);
-        fX = ranGen.nextInt(nRows) * GridSize;
-        fY = ranGen.nextInt(nCols) * GridSize;
-        fW = GridSize;
-        fH = GridSize;
+        snake = new Snake(shape, 10, 10, GridSize, GridSize);
+        snake.setDir(1, 0);
+        arFood.add(new Food(randomPos(), GridSize, GridSize, shape));
     }
 
     @Override
     public void render() {
         Gdx.gl.glClearColor(163f / 255f, 163f / 255f, 163f / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        snake.display();
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(Color.RED);
-        shape.rect(fX, fY, fW, fH);
-        shape.end();
-        
-        if (snake.fX >= fX && snake.fX <= fX + fW) {
-            System.out.println("TEST");
+
+        snake.update();
+        for (int i = arFood.size() - 1; i >= 0; i--) {
+            if (isHitSnakeFood(snake, arFood.get(i))) {
+                snake.bMove = false;
+            }
+        }
+    }
+
+    public Vector2 randomPos() {
+        return new Vector2(ranGen.nextInt(nRows) * GridSize, ranGen.nextInt(nCols) * GridSize);
+    }
+
+    public boolean isHitSnakeFood(Snake snake, Food food) {
+        if (snake.fX >= food.fX && snake.fX <= food.fX + food.fW) {
+            return true;
+        } else {
+            return false;
         }
     }
 
